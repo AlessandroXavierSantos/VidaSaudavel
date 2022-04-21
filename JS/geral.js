@@ -112,7 +112,7 @@ var inputNome = document.querySelector('#nome');
 var select = document.getElementById('select-dias');
 
 //FUNÇÃO MONTAR TABELA
-function montarTabela(){
+function pegandoInfo(){
     console.log(inputNome.value);
     switch(select.value){
         case "1":
@@ -120,13 +120,27 @@ function montarTabela(){
         break;
 
         case "2":
-        console.log("Terça-feira");
+        console.log("Terça-Feira");
         break;
 
+        case "3":
+        console.log("Quarta-Feira");
+        break;
             
+        case "4":
+        console.log("Quinta-Feira");
+        break;
+
+        case "5":
+        console.log("Sexta-Feira");
+        break;
+
+        case "6":
+        console.log("Sabado");
+        break;
+
+        case "7":
+        console.log("Domingo");
+        break;
     }
 }
-
-    // for(let i = 0; i < BD.length; i++){
-    //     tabela.innerHTML += ``
-    // }
