@@ -70,3 +70,18 @@ header
     justify-content: center;
     margin-top: 50px;
 }
+
+#tabela
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.dias-semana
+{
+    padding-right: 60px;
+    font-family: 'Merriweather', serif;
+    font-size: 18px;
+}

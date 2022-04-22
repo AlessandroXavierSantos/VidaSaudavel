@@ -103,7 +103,7 @@ $(document).ready(function() {
 var global = []
 
 //VARIAVEL DO PARA PUXAR O BUTTON DO HTML
-var btnAdicionar = document.querySelector('#button-adicionar');
+var btnAdicionar = document.querySelector('#button-salvar');
 
 //VARIAVEL DO INPUT
 var inputNome = document.querySelector('#nome');
@@ -113,34 +113,44 @@ var select = document.getElementById('select-dias');
 
 //FUNÇÃO MONTAR TABELA
 function pegandoInfo(){
-    console.log(inputNome.value);
     switch(select.value){
         case "1":
+        console.log(inputNome.value);
         console.log("Segunda-Feira");
         break;
 
         case "2":
+        console.log(inputNome.value);
         console.log("Terça-Feira");
         break;
 
         case "3":
+        console.log(inputNome.value);
         console.log("Quarta-Feira");
         break;
             
         case "4":
+        console.log(inputNome.value);
         console.log("Quinta-Feira");
         break;
 
         case "5":
+        console.log(inputNome.value);
         console.log("Sexta-Feira");
         break;
 
         case "6":
+        console.log(inputNome.value);
         console.log("Sabado");
         break;
 
         case "7":
+        console.log(inputNome.value);
         console.log("Domingo");
         break;
     }
+}
+
+function salvar(){
+    this.pegandoInfo();
 }
