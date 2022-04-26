@@ -101,6 +101,8 @@ $(document).ready(function() {
 /*JS DA ATIVIDADE EM SI*/
 //VARIAVEL GLOBAL
 var global = []
+var index = 0;
+var indexEmpty = 0;
 
 //VARIAVEL DO PARA PUXAR O BUTTON DO HTML
 var btnAdicionar = document.querySelector('#button-salvar');
@@ -113,44 +115,83 @@ var select = document.getElementById('select-dias');
 
 //FUNÇÃO MONTAR TABELA
 function pegandoInfo(){
-    switch(select.value){
-        case "1":
-        console.log(inputNome.value);
-        console.log("Segunda-Feira");
-        break;
-
-        case "2":
-        console.log(inputNome.value);
-        console.log("Terça-Feira");
-        break;
-
-        case "3":
-        console.log(inputNome.value);
-        console.log("Quarta-Feira");
-        break;
-            
-        case "4":
-        console.log(inputNome.value);
-        console.log("Quinta-Feira");
-        break;
-
-        case "5":
-        console.log(inputNome.value);
-        console.log("Sexta-Feira");
-        break;
-
-        case "6":
-        console.log(inputNome.value);
-        console.log("Sabado");
-        break;
-
-        case "7":
-        console.log(inputNome.value);
-        console.log("Domingo");
-        break;
+    if(select.value == ""){
+        alert("Selecione um dia, por favor!")
+        return;
+    }
+    if(checarVaziotd(select.value) && index != 0){
+        global[indexEmpty].tdContent[select.value] = ''+inputNome.value+'<div class="edit"><span class="material-icons" onclick="Editar()">edit</span></div><div class="delete"><span class="material-icons">delete</span></div>';
+    }
+    else{
+        global[index] = {
+            td: [],
+            tdContent: [],
+            index: index
+        };
+        for(let i = 0; i < 7; i++){
+            if(i == select.value){ // O i VAI PASSAR POR TODOS OS SELECTS
+                global[index].td[i] = '<td>';
+                global[index].tdContent[i] = ''+inputNome.value+'<div class="edit"><span class="material-icons" onclick="Editar()">edit</span></div><div class="delete" onclick="Excluir()"><span class="material-icons">delete</span></div>';
+            }
+            else{
+                global[index].td[i] = '<td>';
+                global[index].tdContent[i] = '';
+            }
+        };
+        index++;
     }
 }
 
 function salvar(){
     this.pegandoInfo();
+    this.CriandoHtml();
 }
+
+function colocarPagina(Info, index){
+    if (index === 0) {
+        document.querySelector("tbody").insertAdjacentHTML("afterbegin", Info);
+    } else {
+        document.querySelector("[data-counteud-index='" + (index - 1) + "']").insertAdjacentHTML("afterend", Info);
+    }
+}
+
+function CriandoHtml(){
+    let element = document.querySelector("tbody");
+    let child = element.lastElementChild;
+    while (child) {
+        element.removeChild(child);
+        child = element.lastElementChild;
+    }
+    global.forEach((value) => {
+        let html = '<tr class="tr" data-counteud-index="' + value.index + '">';
+        value.td.forEach((tdValue, index) => {
+            html += tdValue + value.tdContent[index] + "</td>";
+        })
+        html += '</tr>';
+        this.colocarPagina(html, value.index);
+    });
+
+}
+
+function checarVaziotd(dia){
+    global.every((value) => {
+        if (value.tdContent[dia] == '') {
+            indexEmpty = value.index;
+            return value.index;
+        }
+
+        indexEmpty = false;
+        return true;
+    })
+
+    return (indexEmpty !== false ? true : false);
+}
+
+// function Editar(){
+
+// }
+
+// function Excluir(){
+
+// }
+

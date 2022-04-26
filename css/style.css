@@ -85,3 +85,36 @@ header
     font-family: 'Merriweather', serif;
     font-size: 18px;
 }
+
+.tr
+{
+    width: 100%;
+}
+
+.edit
+{
+    color: black;
+    margin-left: 50px;
+    margin-top: -25px;
+    border: solid 3px #03c8a8;
+    border-radius: 100px;
+    width:30px;
+    height:30px;
+    background-color:#03c8a8;
+}
+
+.delete
+{
+    border: solid 3px red;
+    border-radius: 100px;
+    height: 30px;
+    width: 30px;
+    background-color: red;
+    margin-left: 90px;
+    margin-top: -30px;
+}
+
+#button-imc
+{
+    margin-left: 10px;
+}
