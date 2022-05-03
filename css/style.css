@@ -118,3 +118,86 @@ header
 {
     margin-left: 10px;
 }
+
+/*********************************************/
+/*MODAL*/
+/*********************************************/
+
+.no-see
+{
+    display: none;
+}
+.see
+{
+    display: flex;
+    
+    align-items: center;
+    justify-content: center;
+}
+
+#modal 
+{
+    background-color: rgba(0, 0, 0, 0.664);
+    width: 100%;
+    height: 100%;
+    z-index: +10;
+    position: absolute;
+    overflow-y: hidden;
+}
+#modal-box
+{
+    height: 60%;
+    width: 30%;
+    border-radius: 1.5vw;
+    position: relative;
+
+    border: solid 3px rgb(131, 236, 131);
+    background-color: #f3f2f2;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+#close
+{
+    font-size: 1.5vw;
+    width: 10%;
+    height: 10%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: -10px;
+    margin-right: -15px;
+    border-radius: 60%;
+}
+#close:hover
+{
+    background-color: rgb(211, 77, 77);    
+    border: solid rgb(156, 51, 51);
+    transition: 0.3s;
+    color: white;
+    font-weight: 800;
+}
+
+#close:not(:hover)
+{
+    border: solid rgb(40, 121, 40);
+    font-weight: 800;
+    color: black;
+    transition: 0.3s;
+}
+
+#result
+{
+    text-align: center;
+    font-size: 3vw;
+}
+
+img
+{
+    margin-top: 1.5vw;
+    height: 15%;
+}
