@@ -100,16 +100,21 @@ $(document).ready(function () {
 });
 /*________________________________________________________________________________________________________________________________________________________________*/
 //ANIMAÇÃO MODAL
+let mod = document.getElementById("modal");
+
 function ModalAnimation()
 {
-    let mod = document.getElementById("modal");
     mod.classList.remove('no-see');
     mod.classList.add('see');
+    document.querySelector('body').style = "overflow:hidden";
+    window.scrollTo(0, 0);
 }
 function Closing()
 {
+    
     mod.classList.remove('see');
     mod.classList.add('no-see'); 
+    document.querySelector('body').style = "overflow:visible";
 }
 
 document.addEventListener('keydown', function(event){
@@ -123,6 +128,8 @@ document.querySelector("#modal").addEventListener("click", function(){
 });
 /*________________________________________________________________________________________________________________________________________________________________*/
 /*JS DA ATIVIDADE EM SI*/
+//VARIAVEL GLOBAL
+var html = 0;
 //VARIAVEL DO PARA PUXAR O BUTTON DO HTML
 var btnAdicionar = document.querySelector('#button-adicionar');
 
@@ -131,7 +138,6 @@ var inputManha = document.querySelector('#manha');
 var inputTarde = document.querySelector('#tarde');
 var inputNoite = document.querySelector('#noite');
 
-//ARRAY PARA AGRUPAR TODOS OS INPUTS DE UMA VEZ
 var ArrayCampos = [
     inputManha,
     inputTarde,
@@ -144,74 +150,108 @@ console.log(linhas);
 //VARIAVEL DO SELECT 
 var select = document.getElementById('select-dias');
 
+// function Verificacao(){
+//     if(ArrayCampos.value == ""){
+//         alert("Insira valores válidos nos Inputs, por favor!")
+//     }
+//     else{
+
+//     }
+// }
+
 function PegandoInfo(){ //PEGANDO INFORMAÇÃO DO select
     console.log(linhas);
     let dia = "";
     switch(select.value){
-    case "segunda":
-    console.log("SALVOU NA SEGUNDA","Segunda-Feira");
-    dia = document.querySelector('#segunda')
-    break;
+        case "segunda":
+        console.log("Segunda-Feira");
+        dia = document.querySelector('#segunda')
+        break;
+
+        case "terca":
+        console.log("Terça-feira");
+        dia = document.querySelector('#terca')
+        break;
         
-    case "terca":
-    console.log("SALVOU NA TERÇA","Terça-feira");
-    dia = document.querySelector('#terca')
-    break;
-    
-    case "quarta":
-    console.log("SALVOU NA QUARTA","Quarta-Feira")    
-    dia = document.querySelector('#quarta')
-    break;
+        case "quarta":
+        console.log("Quarta-Feira")    
+        dia = document.querySelector('#quarta')
+        break;
+        
+        case "quinta":
+        console.log("Quinta-Feira")
+        dia = document.querySelector('#quinta')
+        break;
 
-    case "quinta":
-    console.log("SALVOU NA QUINTA","Quinta-Feira")
-    dia = document.querySelector('#quinta')
-    break;
-    
-    case "sexta":
-    console.log("SALVOU NA SEXTA","Sexta-Feira")
-    dia = document.querySelector('#sexta')
-    break;
-                
-    case "sabado":
-    console.log("Sabado")
-    dia = document.querySelector('#sabado')
-    break;
-    
-    case "domingo":
-    console.log("Domingo")
-    dia = document.querySelector('#domingo')
-    break;
+        case "sexta":
+        console.log("Sexta-Feira")
+        dia = document.querySelector('#sexta')
+        break;
+
+        case "sabado":
+        console.log("Sabado")
+        dia = document.querySelector('#sabado')
+        break;
+        
+        case "domingo":
+        console.log("Domingo")
+        dia = document.querySelector('#domingo')
+        break;
     }
-
     MontarTabela(dia);
 }
     
 //FUNÇÃO MONTAR TABELA
-function MontarTabela(dia){
-    for(let i = 0; i < ArrayCampos.length; i++){
-        let td = document.createElement('td');//td CELULA QUE TEM O VALOR
-        td.textContent = ArrayCampos[i].value;//CONTEUDO DO TEXTO
-        dia.appendChild(td);
+    function MontarTabela(dia){
+        if(inputManha.value == "" || inputTarde.value == "" || inputNoite.value == "" || select.value == ""){
+        alert("Insira valores válidos nos Inputs ou selecione o dia, por favor!")
     }
-    var btnDeletar = document.createElement('button');/*CRIANDO O ELEMENTO BUTTON APÓS INSERIR OS VALORES DOS
-    INPUTS*/
-    btnDeletar.textContent = "Deletar";
-    dia.appendChild(btnDeletar);
-    btnDeletar.classList.add('btn');//classlist.add --> CRIA UMA CLASS PELO JS
-    btnDeletar.classList.add('btn-danger');
-    btnDeletar.id = `${dia.id}`;//TEMPLATE STRING(${VARIAVEL}) PASSA O VALOR DA VARIAVEL 
-    btnDeletar.addEventListener("click", ()=>{//()=> ARROWFUNCTION --> FUNÇÃO ANONIMA        
+    else{
+        for(let i = 0; i < ArrayCampos.length; i++){
+            let td = document.createElement('td');//td CELULA QUE TEM O VALOR
+            td.textContent = ArrayCampos[i].value;//CONTEUDO DO TEXTO
+            dia.appendChild(td);
+        } 
+        var btnDeletar = document.createElement('button');/*CRIANDO O ELEMENTO BUTTON APÓS INSERIR OS VALORES DOS
+        INPUTS*/
+        btnDeletar.textContent = "Deletar";
+        dia.appendChild(btnDeletar);
+        //classlist.add --> CRIA UMA CLASS PELO JS
+        btnDeletar.classList.add('btn');
+        btnDeletar.classList.add('btn-danger');
+        //TEMPLATE STRING(${VARIAVEL}) PASSA O VALOR DA VARIAVEL
+        btnDeletar.id = `${dia.id}`;
         /*AO CLICAR("Click") NO BUTTON DELETAR ELE EXECUTARA UMA FUNÇÃO ANONIMA(()=>)
         ONDE O ID DO BUTTON(btnDeletar.id) TEM QUE SER IGUAL AO ID DA LINHA(dia.id)*/
-        if(btnDeletar.id == dia.id){ //VERIFICAÇÃO PARA VER SE O id DO btnDeletar É IGUAL AO DO dia
-            /*CASO FOR ELE ENTRA NA CONDIÇÃO, CRIA UMA VARIAVEL PARA "ARMAZENAR" TODAS AS LINHAS E VALORES
-            DA LINHA(td) E COLOCA IGUALA A POSIÇÃO DAS INFORMAÇÕES A VAZIO APAGANDO O VALOR DIGITADO ANTES*/
-            let conjuntoTd = document.querySelectorAll(`#${dia.id} td`);
-            console.log(conjuntoTd);
-            conjuntoTd[1].textContent = '';
-            conjuntoTd[2].textContent = '';
-            conjuntoTd[3].textContent = '';
-        }        
-    }); 
+        btnDeletar.addEventListener("click", ()=>{
+            //()=> ARROWFUNCTION --> FUNÇÃO ANONIMA, CALLBACK(FUNÇÕES PASSADAS COMO PARAMETROS)
+            if(btnDeletar.id == dia.id){/*VERIFICAÇÃO PARA VER SE O id DO btnDeletar É IGUAL AO DO dia CASO FOR ELE ENTRA NA CONDIÇÃO, 
+                CRIA UMA VARIAVEL PARA "ARMAZENAR" TODAS AS LINHAS E VALORES DA LINHA(td) E COLOCA IGUALA A POSIÇÃO
+                DAS INFORMAÇÕES A VAZIO APAGANDO O VALOR DIGITADO ANTES*/
+                let conjuntoTd = document.querySelectorAll(`#${dia.id} td`);
+                console.log(conjuntoTd);
+                conjuntoTd[1].textContent = '';
+                conjuntoTd[2].textContent = '';
+                conjuntoTd[3].textContent = '';
+            }        
+        });
+    
+        var btnEditar = document.createElement('button');
+        btnEditar.textContent = "Editar";
+        btnEditar.classList.add('btn');
+        btnEditar.classList.add('btn-warning')
+        dia.appendChild(btnEditar);//**PEGA A VARIAVEL "btnEditar" E IMPRIME DENTRO A VARIAVEL "dia" COMO UM FILHO
+        btnEditar.id = `${dia.id}`;
+        btnEditar.addEventListener("click", ()=>{
+            if(btnEditar.id == dia.id){
+                let conjuntoTd = document.querySelectorAll(`#${dia.id} td`);
+                console.log(conjuntoTd);
+                conjuntoTd[1].textContent = inputManha.value;
+                conjuntoTd[2].textContent = inputTarde.value;
+                conjuntoTd[3].textContent = inputNoite.value;
+            }
+        });
+    }
 }
+
+
